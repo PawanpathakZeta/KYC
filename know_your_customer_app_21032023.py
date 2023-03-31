@@ -205,12 +205,12 @@ if match_button and Seed_file_valid_flag:
         st.error('Please, select two different extra columns to perform match')
     else:
         # Bar progress
-        st.warning('Profiling is under progress. Please don’t close the window', icon="⚠️")
+        st.warning('Profiling is under progress. Please don’t close the window')
         latest_iteration = st.empty()
         bar = st.progress(0)
         latest_iteration.text('Profiling in progress...')
         time.sleep(600)
-        st.success('Profiling is completed successfully', icon="✅")
+        st.success('Profiling is completed successfully')
         # bar = st.progress(0)
         latest_iteration.text('Profiling is Done...')
 
