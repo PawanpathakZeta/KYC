@@ -1,12 +1,12 @@
 import streamlit as st
 import pandas as pd
 import numpy as np    
-import matplotlib.pyplot as plt
-from matplotlib_venn import venn2
+# import matplotlib.pyplot as plt
+# from matplotlib_venn import venn2
 import os
 import sys
 from PIL import Image
-from matplotlib import pyplot as plt
+# from matplotlib import pyplot as plt
 import time
 import datetime
 from io import BytesIO
