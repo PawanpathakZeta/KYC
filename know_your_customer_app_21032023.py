@@ -1,12 +1,12 @@
 import streamlit as st
 import pandas as pd
 import numpy as np    
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 from matplotlib_venn import venn2
 import os
 import sys
 from PIL import Image
-# from matplotlib import pyplot as plt
+from matplotlib import pyplot as plt
 import time
 import datetime
 from io import BytesIO
@@ -127,7 +127,7 @@ if Seed_file_valid_flag == True:
         options=('2','3','4'), help='Select main field threshold to perfom match',key = 11)
     selectbox_max_clusters_12 = st.sidebar.selectbox('Maximum Number of Clusters',
         options=('5','6','7'), help='Select main field threshold to perfom match', key = 12)
-    st.sidebar.markdown(f'<h1 style="color:{tertiaryColor};font-size:16px;">{f"The operation will take less than a minute"}</h1>', unsafe_allow_html=True)
+    st.sidebar.markdown(f'<h1 style="color:{tertiaryColor};font-size:16px;">{f"The operation will take couple of hours"}</h1>', unsafe_allow_html=True)
 
 else:
     selectbox_mss = list([" "])
@@ -143,10 +143,11 @@ else:
 
 ## Apply Match button
 st.sidebar.title("Profile Customer")
-match_button = st.sidebar.button("""Apply Profiling""", help='Apply match to your data and show the results')
+match_button = st.sidebar.button("""Generate Clusters""", help='Apply match to your data and show the results')
 
-st.sidebar.title("Download Result Excel")
+st.sidebar.title("Download Profiles")
 result_download = st.sidebar.button("""Download""", help='Apply match to your data and show the results')
+
 
 
 
@@ -204,12 +205,42 @@ if match_button and Seed_file_valid_flag:
         st.error('Please, select two different extra columns to perform match')
     else:
         # Bar progress
+        st.warning('Profiling is under progress. Please don’t close the window', icon="⚠️")
         latest_iteration = st.empty()
         bar = st.progress(0)
         latest_iteration.text('Profiling in progress...')
+        time.sleep(600)
+        st.success('Profiling is completed successfully', icon="✅")
+        # bar = st.progress(0)
+        latest_iteration.text('Profiling is Done...')
+
+if result_download and Seed_file_valid_flag:
+    if (selectbox_min_clusters_11 > selectbox_max_clusters_12 ) and ((selectbox_min_clusters_11 != '') or select_box_Seed_load_12 != ''):
+        st.error('Please, select two different extra columns to perform match')
+    else:
+        # file_name1="df_cluster.csv"
+        # with open(file_name1, "rb") as template_file1:
+        #     template_byte1 = template_file1.read()
+
+        # st.download_button(label="Click to Download df_cluster",
+        #                 data=template_byte1,
+        #                 file_name="df_cluster.csv",
+        #                 mime='')
+        file_name="final_report.xlsx"
+        with open(file_name, "rb") as template_file:
+            template_byte = template_file.read()
+
+        st.download_button(label="Click to Download final_report",
+                        data=template_byte,
+                        file_name="final_report.xlsx",
+                        mime='')
+        # Bar progress
+        latest_iteration = st.empty()
+        bar = st.progress(0)
+        latest_iteration.text('Downloading progress...')
         time.sleep(2)
         # bar = st.progress(0)
-        latest_iteration.text('Profiling in Done...')
+        latest_iteration.text('Download is Done...')
 
 
 
